@@ -6,6 +6,7 @@ require 'faraday_middleware'
 require 'apple_music/config'
 
 module AppleMusic
+  class ApiError < StandardError; end
   API_URI = 'https://api.music.apple.com/v1/'
 
   class << self
