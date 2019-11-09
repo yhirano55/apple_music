@@ -8,8 +8,10 @@ module AppleMusic
   class Config
     ALGORITHM = 'ES256'
     TOKEN_EXPIRATION_TIME = 60 * 60 * 24 # 1.day
+    DEFAULT_STORE_FRONT = 'us'
+
     attr_accessor :secret_key_path, :team_id, :music_id,
-                  :token_expiration_time, :adapter
+                  :token_expiration_time, :adapter, :store_front
 
     def initialize
       @secret_key_path = ENV['APPLE_MUSIC_SECRET_KEY_PATH']
@@ -17,6 +19,7 @@ module AppleMusic
       @music_id = ENV['APPLE_MUSIC_MUSIC_ID']
       @token_expiration_time = TOKEN_EXPIRATION_TIME
       @adapter = Faraday.default_adapter
+      @store_front = ENV.fetch('APPLE_MUSIC_STORE_FRONT') { DEFAULT_STORE_FRONT }
     end
 
     def authentication_token

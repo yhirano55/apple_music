@@ -5,20 +5,21 @@ module AppleMusic
   class ResponseRoot
     attr_reader :data, :errors, :href, :meta, :next, :results
 
-    def initialize(options = {})
-      @data = options['data']
-      @errors = Array(options['errors']).map { |error| Error.new(error) }
-      @href = options['href']
-      @meta = options['meta']
-      @next = options['next']
-      @results = options['results']
+    def initialize(props = {})
+      props ||= {}
+      @data = Array(props['data'])
+      @errors = Array(props['errors']).map { |attrs| Error.new(attrs) }
+      @href = props['href']
+      @meta = props['meta']
+      @next = props['next']
+      @results = props['results']
       raise_api_error unless success?
     end
 
     private
 
     def raise_api_error
-      raise ApiError, errors.map(&:detail).join(', ')
+      raise ApiError, errors.map(&:title).join(', ')
     end
 
     def success?

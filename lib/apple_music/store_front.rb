@@ -7,8 +7,8 @@ module AppleMusic
   class StoreFront < Resource
     attr_reader :attributes
 
-    def initialize(options = {})
-      @attributes = Attributes.new(options['attributes'] || {})
+    def initialize(props = {})
+      @attributes = Attributes.new(props['attributes']) if props['attributes']
       super
     end
 
@@ -16,10 +16,10 @@ module AppleMusic
     class Attributes
       attr_reader :default_language_tag, :name, :support_language_tags
 
-      def initialize(options = {})
-        @default_language_tag = options['defaultLanguageTag']
-        @name = options['name']
-        @support_language_tags = options['supportedLanguageTags']
+      def initialize(props = {})
+        @default_language_tag = props['defaultLanguageTag'] # required
+        @name = props['name'] # required
+        @support_language_tags = props['supportedLanguageTags'] # required
       end
     end
 
@@ -38,6 +38,12 @@ module AppleMusic
         response = AppleMusic.get(url, options)
         store_front_response = StoreFrontResponse.new(response.body)
         store_front_response.data.map { |data| new(data) }
+      end
+
+      def lookup(value, required: true)
+        (value || AppleMusic.config.store_front).tap do |store_front|
+          raise ParameterMissing, 'required parameter :store_front is missing' if required && !store_front
+        end
       end
     end
   end

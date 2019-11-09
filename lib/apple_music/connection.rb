@@ -7,6 +7,8 @@ require 'apple_music/config'
 
 module AppleMusic
   class ApiError < StandardError; end
+  class ParameterMissing < StandardError; end
+
   API_URI = 'https://api.music.apple.com/v1/'
 
   class << self

@@ -1,2 +1,8 @@
+Naming/PredicateName:
+  Enabled: false
+
 Style/Documentation:
+  Enabled: false
+
+Metrics:
   Enabled: false
