@@ -7,8 +7,8 @@ module AppleMusic
       # e.g. AppleMusic::Artist.find(178834)
       # https://developer.apple.com/documentation/applemusicapi/get_a_catalog_artist
       def find(id, **options)
-        store_front = StoreFront.lookup(options.delete(:store_front))
-        response = AppleMusic.get("catalog/#{store_front}/artists/#{id}", options)
+        storefront = Storefront.lookup(options.delete(:storefront))
+        response = AppleMusic.get("catalog/#{storefront}/artists/#{id}", options)
         Response.new(response.body).data.first
       end
 
@@ -23,16 +23,16 @@ module AppleMusic
       # https://developer.apple.com/documentation/applemusicapi/get_multiple_catalog_artists
       def get_collection_by_ids(ids, **options)
         ids = ids.is_a?(Array) ? ids.join(',') : ids
-        store_front = StoreFront.lookup(options.delete(:store_front))
-        response = AppleMusic.get("catalog/#{store_front}/artists", options.merge(ids: ids))
+        storefront = Storefront.lookup(options.delete(:storefront))
+        response = AppleMusic.get("catalog/#{storefront}/artists", options.merge(ids: ids))
         Response.new(response.body).data
       end
 
       # e.g. AppleMusic::Artist.get_relationship(178834, :albums)
       # https://developer.apple.com/documentation/applemusicapi/get_a_catalog_artist_s_relationship_directly_by_name
       def get_relationship(id, relationship_type, **options)
-        store_front = StoreFront.lookup(options.delete(:store_front))
-        response = AppleMusic.get("catalog/#{store_front}/artists/#{id}/#{relationship_type}", options)
+        storefront = Storefront.lookup(options.delete(:storefront))
+        response = AppleMusic.get("catalog/#{storefront}/artists/#{id}/#{relationship_type}", options)
         Response.new(response.body).data
       end
 

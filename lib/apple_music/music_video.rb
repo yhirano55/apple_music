@@ -7,8 +7,8 @@ module AppleMusic
       # e.g. AppleMusic::MusicVideo.find(401135199)
       # https://developer.apple.com/documentation/applemusicapi/get_a_catalog_music_video
       def find(id, **options)
-        store_front = StoreFront.lookup(options.delete(:store_front))
-        response = AppleMusic.get("catalog/#{store_front}/music-videos/#{id}", options)
+        storefront = Storefront.lookup(options.delete(:storefront))
+        response = AppleMusic.get("catalog/#{storefront}/music-videos/#{id}", options)
         Response.new(response.body).data.first
       end
 
@@ -28,8 +28,8 @@ module AppleMusic
       # https://developer.apple.com/documentation/applemusicapi/get_multiple_catalog_music_videos_by_id
       def get_collection_by_ids(ids, **options)
         ids = ids.is_a?(Array) ? ids.join(',') : ids
-        store_front = StoreFront.lookup(options.delete(:store_front))
-        response = AppleMusic.get("catalog/#{store_front}/music-videos", options.merge(ids: ids))
+        storefront = Storefront.lookup(options.delete(:storefront))
+        response = AppleMusic.get("catalog/#{storefront}/music-videos", options.merge(ids: ids))
         Response.new(response.body).data
       end
 
@@ -37,16 +37,16 @@ module AppleMusic
       # https://developer.apple.com/documentation/applemusicapi/get_multiple_catalog_music_videos_by_isrc
       def get_collection_by_isrc(isrc, **options)
         isrc = isrc.is_a?(Array) ? isrc.join(',') : isrc
-        store_front = StoreFront.lookup(options.delete(:store_front))
-        response = AppleMusic.get("catalog/#{store_front}/music-videos", options.merge('filter[isrc]': isrc))
+        storefront = Storefront.lookup(options.delete(:storefront))
+        response = AppleMusic.get("catalog/#{storefront}/music-videos", options.merge('filter[isrc]': isrc))
         Response.new(response.body).data
       end
 
       # e.g. AppleMusic::MusicVideo.get_relationship(401135199, :albums)
       # https://developer.apple.com/documentation/applemusicapi/get_a_catalog_music_video_s_relationship_directly_by_name
       def get_relationship(id, relationship_type, **options)
-        store_front = StoreFront.lookup(options.delete(:store_front))
-        response = AppleMusic.get("catalog/#{store_front}/music-videos/#{id}/#{relationship_type}", options)
+        storefront = Storefront.lookup(options.delete(:storefront))
+        response = AppleMusic.get("catalog/#{storefront}/music-videos/#{id}/#{relationship_type}", options)
         Response.new(response.body).data
       end
 

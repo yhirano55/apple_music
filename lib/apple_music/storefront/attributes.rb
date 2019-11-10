@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module AppleMusic
-  class StoreFront < Resource
+  class Storefront < Resource
     # https://developer.apple.com/documentation/applemusicapi/storefront/attributes
     class Attributes
       attr_reader :default_language_tag, :name, :support_language_tags

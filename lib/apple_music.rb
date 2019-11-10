@@ -28,7 +28,7 @@ module AppleMusic # :nodoc:
   autoload :SearchResult,   'apple_music/search_result'
   autoload :Song,           'apple_music/song'
   autoload :Station,        'apple_music/station'
-  autoload :StoreFront,     'apple_music/store_front'
+  autoload :Storefront,     'apple_music/storefront'
 
   class << self
     def search(**options)

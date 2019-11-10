@@ -16,7 +16,7 @@ module AppleMusic
       'playlists' => :Playlist,
       'songs' => :Song,
       'stations' => :Station,
-      'storeFronts' => :StoreFront
+      'storeFronts' => :Storefront
     }.freeze
 
     class << self

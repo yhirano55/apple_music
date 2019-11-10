@@ -8,8 +8,8 @@ module AppleMusic
       # https://developer.apple.com/documentation/applemusicapi/get_a_catalog_genre
       # https://developer.apple.com/documentation/applemusicapi/get_a_catalog_song
       def find(id, **options)
-        store_front = StoreFront.lookup(options.delete(:store_front))
-        response = AppleMusic.get("catalog/#{store_front}/genres/#{id}", options)
+        storefront = Storefront.lookup(options.delete(:storefront))
+        response = AppleMusic.get("catalog/#{storefront}/genres/#{id}", options)
         Response.new(response.body).data.first
       end
 
@@ -23,8 +23,8 @@ module AppleMusic
           options[:ids] = ids
         end
 
-        store_front = StoreFront.lookup(options.delete(:store_front))
-        response = AppleMusic.get("catalog/#{store_front}/genres", options)
+        storefront = Storefront.lookup(options.delete(:storefront))
+        response = AppleMusic.get("catalog/#{storefront}/genres", options)
         Response.new(response.body).data
       end
     end

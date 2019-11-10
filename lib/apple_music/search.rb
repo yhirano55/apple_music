@@ -14,8 +14,8 @@ module AppleMusic
       # https://developer.apple.com/documentation/applemusicapi/search_for_catalog_resources
       def search(**options)
         options[:term] = format_term(options[:term]) if options[:term]
-        store_front = StoreFront.lookup(options.delete(:store_front))
-        response = AppleMusic.get("catalog/#{store_front}/search", options)
+        storefront = Storefront.lookup(options.delete(:storefront))
+        response = AppleMusic.get("catalog/#{storefront}/search", options)
         SearchResult.new(response.body['results'] || {})
       end
 
@@ -23,8 +23,8 @@ module AppleMusic
       # https://developer.apple.com/documentation/applemusicapi/get_catalog_search_hints
       def search_hints(**options)
         options[:term] = format_term(options[:term]) if options[:term]
-        store_front = StoreFront.lookup(options.delete(:store_front))
-        response = AppleMusic.get("catalog/#{store_front}/search/hints", options)
+        storefront = Storefront.lookup(options.delete(:storefront))
+        response = AppleMusic.get("catalog/#{storefront}/search/hints", options)
         response.body.dig('results', 'terms') || []
       end
 

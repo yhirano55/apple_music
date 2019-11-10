@@ -20,8 +20,8 @@ module AppleMusic
         raise ParameterMissing, 'required parameter :types is missing' unless options[:types]
 
         types = options[:types].is_a?(Array) ? options[:types].join(',') : options[:types]
-        store_front = StoreFront.lookup(options.delete(:store_front))
-        response = AppleMusic.get("catalog/#{store_front}/charts", options.merge(types: types))
+        storefront = Storefront.lookup(options.delete(:storefront))
+        response = AppleMusic.get("catalog/#{storefront}/charts", options.merge(types: types))
         ChartResponse.new(response.body['results'] || {})
       end
     end
