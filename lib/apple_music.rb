@@ -9,7 +9,6 @@ module AppleMusic # :nodoc:
   autoload :Activity,               'apple_music/activity'
   autoload :Album,                  'apple_music/album'
   autoload :AlbumRelationship,      'apple_music/album_relationship'
-  autoload :AppleMusicStation,      'apple_music/apple_music_station'
   autoload :Artist,                 'apple_music/artist'
   autoload :ArtistRelationship,     'apple_music/artist_relationship'
   autoload :Artwork,                'apple_music/artwork'
