@@ -1,26 +1,7 @@
 # frozen_string_literal: true
 
 module AppleMusic
-  class ChartResponse
-    attr_reader :albums, :music_videos, :songs, :playlists
-
-    def initialize(props = {})
-      props ||= {}
-      @albums = extract_chart_data(props['albums'])
-      @music_videos = extract_chart_data(props['music-videos'])
-      @songs = extract_chart_data(props['songs'])
-      @playlists = extract_chart_data(props['playlists'])
-    end
-
-    private
-
-    def extract_chart_data(collection)
-      return [] unless collection
-
-      collection.map { |props| Chart.new(props) }.first&.data
-    end
-  end
-
+  # https://developer.apple.com/documentation/applemusicapi/chart
   class Chart
     attr_reader :chart, :data, :href, :name, :next
 
@@ -41,7 +22,7 @@ module AppleMusic
         types = options[:types].is_a?(Array) ? options[:types].join(',') : options[:types]
         store_front = StoreFront.lookup(options.delete(:store_front))
         response = AppleMusic.get("catalog/#{store_front}/charts", options.merge(types: types))
-        ChartResponse.new(response.body['results'])
+        ChartResponse.new(response.body['results'] || {})
       end
     end
   end

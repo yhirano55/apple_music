@@ -4,5 +4,8 @@ Naming/PredicateName:
 Style/Documentation:
   Enabled: false
 
+Style/ClassAndModuleChildren:
+  Enabled: false
+
 Metrics:
   Enabled: false

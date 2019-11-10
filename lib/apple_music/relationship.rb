@@ -3,10 +3,6 @@
 module AppleMusic
   # https://developer.apple.com/documentation/applemusicapi/relationship
   class Relationship
-    class << self
-      attr_accessor :resource
-    end
-
     attr_reader :data, :href, :meta, :next
 
     def initialize(props = {})
@@ -21,13 +17,7 @@ module AppleMusic
     private
 
     def build_list(data)
-      return [] if resource.nil? || data.nil?
-
-      data.map { |attrs| resource.new(attrs) }
-    end
-
-    def resource
-      self.class.resource
+      Array(data).map { |attrs| Resource.build(attrs) }
     end
   end
 end

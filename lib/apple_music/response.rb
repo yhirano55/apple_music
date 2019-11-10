@@ -2,12 +2,12 @@
 
 module AppleMusic
   # https://developer.apple.com/documentation/applemusicapi/responseroot
-  class ResponseRoot
+  class Response
     attr_reader :data, :errors, :href, :meta, :next, :results
 
     def initialize(props = {})
       props ||= {}
-      @data = Array(props['data'])
+      @data = Array(props['data']).map { |attrs| Resource.build(attrs) }
       @errors = Array(props['errors']).map { |attrs| Error.new(attrs) }
       @href = props['href']
       @meta = props['meta']

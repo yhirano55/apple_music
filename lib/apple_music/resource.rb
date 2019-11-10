@@ -3,29 +3,39 @@
 module AppleMusic
   # https://developer.apple.com/documentation/applemusicapi/resource
   class Resource
+    class InvalidTypeError < StandardError; end
+
     RESOURCE_MAP = {
+      'activities' => :Activity,
       'albums' => :Album,
+      'apple-curators' => :AppleCurator,
       'artists' => :Artist,
-      'apple-curators' => :Curator,
+      'curators' => :Curator,
       'genres' => :Genre,
-      'musicVideos' => :MusicVideo,
+      'music-videos' => :MusicVideo,
       'playlists' => :Playlist,
       'songs' => :Song,
       'stations' => :Station,
       'storeFronts' => :StoreFront
     }.freeze
 
-    def self.build(props)
-      const_get("::AppleMusic::#{RESOURCE_MAP[props['type']]}").new(props)
+    class << self
+      attr_accessor :attributes_model, :relationships_model
+
+      def build(props)
+        class_name = RESOURCE_MAP[props['type']] || raise(InvalidTypeError, "#{props['type']} type is undefined.")
+        const_get("::AppleMusic::#{class_name}").new(props)
+      end
     end
 
     attr_reader :href, :id, :type, :attributes, :relationships
 
     def initialize(props = {})
-      props ||= {}
       @href = props['href']
       @id = props['id']
       @type = props['type']
+      @attributes = self.class.attributes_model.new(props['attributes']) if props['attributes']
+      @relationships = self.class.relationships_model.new(props['relationships']) if props['relationships']
     end
 
     private

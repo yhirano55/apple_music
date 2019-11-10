@@ -2,7 +2,7 @@
 
 module AppleMusic
   # https://developer.apple.com/documentation/applemusicapi/editorialnotes
-  class EditionalNotes
+  class EditorialNotes
     attr_reader :short, :standard
 
     def initialize(props = {})
