@@ -62,6 +62,7 @@ module AppleMusic
     end
 
     class << self
+      # e.g. AppleMusic::Album.find(310730204)
       # https://developer.apple.com/documentation/applemusicapi/get_a_catalog_album
       def find(id, **options)
         store_front = StoreFront.lookup(options.delete(:store_front))
@@ -70,16 +71,24 @@ module AppleMusic
         new(album_response.data[0])
       end
 
-      # https://developer.apple.com/documentation/applemusicapi/get_multiple_catalog_albums
+      # e.g. AppleMusic::Album.list(ids: [310730204, 19075891])
       def list(**options)
-        raise(ParameterMissing, 'required parameter :ids is missing') unless options[:ids]
+        raise ParameterMissing, 'required parameter :ids is missing' unless options[:ids]
 
+        get_collection_by_ids(options.delete(:ids), options)
+      end
+
+      # e.g. AppleMusic::Album.get_collection_by_ids([310730204, 19075891])
+      # https://developer.apple.com/documentation/applemusicapi/get_multiple_catalog_albums
+      def get_collection_by_ids(ids, **options)
+        ids = ids.is_a?(Array) ? ids.join(',') : ids
         store_front = StoreFront.lookup(options.delete(:store_front))
-        response = AppleMusic.get("catalog/#{store_front}/albums", options)
+        response = AppleMusic.get("catalog/#{store_front}/albums", options.merge(ids: ids))
         album_response = AlbumResponse.new(response.body)
         album_response.data.map { |props| new(props) }
       end
 
+      # e.g. AppleMusic::Album.get_relationship(310730204, :artists)
       # https://developer.apple.com/documentation/applemusicapi/get_a_catalog_album_s_relationship_directly_by_name
       def get_relationship(id, relationship_type, **options)
         store_front = StoreFront.lookup(options.delete(:store_front))
@@ -88,14 +97,17 @@ module AppleMusic
         album_response.data.map { |props| Resource.build(props) }
       end
 
+      # e.g. AppleMusic::Album.related_artists(310730204)
       def related_artists(id:, **options)
         get_relationship(id, :artists, options)
       end
 
+      # e.g. AppleMusic::Album.related_genres(310730204)
       def related_genres(id:, **options)
         get_relationship(id, :genres, options)
       end
 
+      # e.g. AppleMusic::Album.related_tracks(310730204)
       def related_tracks(id:, **options)
         get_relationship(id, :tracks, options)
       end
