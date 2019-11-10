@@ -17,5 +17,14 @@ module AppleMusic
       @text_color4 = props['textColor4']
       @url = props['url'] # required
     end
+
+    def image_url(options = {})
+      @image_url ||= begin
+        width = options[:width] || self.width
+        height = options[:height] || self.height
+        size = options[:size] || "#{width}x#{height}"
+        url.gsub('{w}x{h}', size)
+      end
+    end
   end
 end
