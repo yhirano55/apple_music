@@ -22,7 +22,11 @@ module AppleMusic
         @name = props['name'] # required
         @play_params = PlayParameters.new(props['playParams']) if props['playParams']
         @record_label = props['recordLabel'] # required
-        @release_date = Date.parse(props['releaseDate']) # required
+        @release_date = begin # required
+                          Date.parse(props['releaseDate'])
+                        rescue ArgumentError
+                          Date.parse("#{props['releaseDate']}/01/01")
+                        end
         @track_count = props['trackCount'] # required
         @url = props['url'] # required
         @is_mastered_for_itunes = props['isMasteredForItunes'] # required
