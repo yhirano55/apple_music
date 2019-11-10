@@ -20,7 +20,6 @@ module AppleMusic # :nodoc:
   autoload :Genre,                  'apple_music/genre'
   autoload :GenreRelationship,      'apple_music/genre_relationship'
   autoload :History,                'apple_music/history'
-  autoload :MusicGenre,             'apple_music/music_genre'
   autoload :MusicVideo,             'apple_music/music_video'
   autoload :MusicVideoRelationship, 'apple_music/music_video_relationship'
   autoload :PlayParameters,         'apple_music/play_parameters'
