@@ -14,6 +14,7 @@ module AppleMusic
       # https://developer.apple.com/documentation/applemusicapi/search_for_catalog_resources
       def search(**options)
         options[:term] = format_term(options[:term]) if options[:term]
+
         storefront = Storefront.lookup(options.delete(:storefront))
         response = AppleMusic.get("catalog/#{storefront}/search", options)
         SearchResult.new(response.body['results'] || {})

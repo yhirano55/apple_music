@@ -64,6 +64,10 @@ module AppleMusic
       def related_genres(id, **options)
         get_relationship(id, :genres, options)
       end
+
+      def search(term, **options)
+        AppleMusic.search(options.merge(term: term, types: 'music-videos')).music_videos
+      end
     end
   end
 end

@@ -40,6 +40,10 @@ module AppleMusic
       def related_playlists(id, **options)
         get_relationship(id, :playlists, options)
       end
+
+      def search(term, **options)
+        AppleMusic.search(options.merge(term: term, types: :curators)).curators
+      end
     end
   end
 end

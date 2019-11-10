@@ -3,7 +3,7 @@
 module AppleMusic
   class AppleCurator < Resource
     # https://developer.apple.com/documentation/applemusicapi/applecurator/relationships
-    class Curator::Relationships
+    class Relationships
       attr_reader :playlists
 
       def initialize(props = {})

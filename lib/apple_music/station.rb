@@ -27,6 +27,10 @@ module AppleMusic
         response = AppleMusic.get("catalog/#{storefront}/stations", options.merge(ids: ids))
         Response.new(response.body).data
       end
+
+      def search(term, **options)
+        AppleMusic.search(options.merge(term: term, types: :stations)).stations
+      end
     end
   end
 end

@@ -27,6 +27,10 @@ module AppleMusic
         response = AppleMusic.get("catalog/#{storefront}/genres", options)
         Response.new(response.body).data
       end
+
+      def search(*)
+        warn 'WARN: :genres is not searchable resource'
+      end
     end
   end
 end

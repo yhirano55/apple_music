@@ -24,6 +24,10 @@ module AppleMusic
         response = AppleMusic.get("catalog/#{storefront}/charts", options.merge(types: types))
         ChartResponse.new(response.body['results'] || {})
       end
+
+      def search(**_options)
+        warn 'WARN: :charts is not searchable resource'
+      end
     end
   end
 end

@@ -21,6 +21,10 @@ module AppleMusic
           raise ParameterMissing, 'required parameter :storefront is missing' if required && !storefront
         end
       end
+
+      def search(*)
+        warn 'WARN: :storefronts is not searchable resource'
+      end
     end
   end
 end

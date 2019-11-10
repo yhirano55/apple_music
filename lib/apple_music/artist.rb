@@ -55,6 +55,10 @@ module AppleMusic
       def related_station(id, **options)
         get_relationship(id, :station, options).first
       end
+
+      def search(term, **options)
+        AppleMusic.search(options.merge(term: term, types: :artists)).artists
+      end
     end
   end
 end
