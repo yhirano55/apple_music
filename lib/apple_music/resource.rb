@@ -6,7 +6,7 @@ module AppleMusic
     RESOURCE_MAP = {
       'albums' => :Album,
       'artists' => :Artist,
-      'curators' => :Curator,
+      'apple-curators' => :Curator,
       'genres' => :Genre,
       'musicVideos' => :MusicVideo,
       'playlists' => :Playlist,
