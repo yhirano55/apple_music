@@ -236,7 +236,7 @@ AppleMusic.configure do |config|
   config.secret_key_path = './AuthKey_MUSIC_ID.p8' # or ENV['APPLE_MUSIC_SECRET_KEY_PATH']
   config.team_id         = 'YOUR TEAM_ID'          # or ENV['APPLE_MUSIC_TEAM_ID']
   config.music_id        = 'YOUR MUSIC_ID'         # or ENV['APPLE_MUSIC_MUSIC_ID']
-  config.storefront      = 'jp'                    # or ENV['APPLE_MUSIC_STORE_FRONT'] ('us' by default)
+  config.storefront      = 'jp'                    # or ENV['APPLE_MUSIC_STOREFRONT'] ('us' by default)
 end
 ```
 
