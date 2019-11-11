@@ -6,17 +6,17 @@ module AppleMusic
     class InvalidTypeError < StandardError; end
 
     RESOURCE_MAP = {
-      'activities' => :Activity,
-      'albums' => :Album,
-      'apple-curators' => :AppleCurator,
-      'artists' => :Artist,
-      'curators' => :Curator,
-      'genres' => :Genre,
-      'music-videos' => :MusicVideo,
-      'playlists' => :Playlist,
-      'songs' => :Song,
-      'stations' => :Station,
-      'storeFronts' => :Storefront
+      'activities' => 'AppleMusic::Activity',
+      'albums' => 'AppleMusic::Album',
+      'apple-curators' => 'AppleMusic::AppleCurator',
+      'artists' => 'AppleMusic::Artist',
+      'curators' => 'AppleMusic::Curator',
+      'genres' => 'AppleMusic::Genre',
+      'music-videos' => 'AppleMusic::MusicVideo',
+      'playlists' => 'AppleMusic::Playlist',
+      'songs' => 'AppleMusic::Song',
+      'stations' => 'AppleMusic::Station',
+      'storefronts' => 'AppleMusic::Storefront'
     }.freeze
 
     class << self
@@ -24,7 +24,7 @@ module AppleMusic
 
       def build(props)
         class_name = RESOURCE_MAP[props['type']] || raise(InvalidTypeError, "#{props['type']} type is undefined.")
-        const_get("::AppleMusic::#{class_name}").new(props)
+        const_get(class_name).new(props)
       end
     end
 
