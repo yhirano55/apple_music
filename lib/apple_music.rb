@@ -32,11 +32,11 @@ module AppleMusic # :nodoc:
 
   class << self
     def search(**options)
-      Search.search(options)
+      Search.search(**options)
     end
 
     def search_hint(**options)
-      Search.search_hint(options)
+      Search.search_hint(**options)
     end
   end
 end
