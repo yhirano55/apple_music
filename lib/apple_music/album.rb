@@ -52,7 +52,7 @@ module AppleMusic
       end
 
       def search(term, **options)
-        AppleMusic.search(options.merge(term: term, types: :albums)).albums
+        AppleMusic.search(**options.merge(term: term, types: :albums)).albums
       end
     end
   end

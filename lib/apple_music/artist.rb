@@ -57,7 +57,7 @@ module AppleMusic
       end
 
       def search(term, **options)
-        AppleMusic.search(options.merge(term: term, types: :artists)).artists
+        AppleMusic.search(**options.merge(term: term, types: :artists)).artists
       end
     end
   end
