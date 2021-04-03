@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    apple_music (0.1.0)
+    apple_music (0.2.0)
       faraday
       faraday_middleware
       jwt (>= 2.2)
@@ -75,4 +75,4 @@ DEPENDENCIES
   rubocop
 
 BUNDLED WITH
-   2.2.3
+   2.2.14
