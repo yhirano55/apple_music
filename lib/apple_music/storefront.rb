@@ -22,7 +22,7 @@ module AppleMusic
         end
       end
 
-      def search(*)
+      def search(**_options)
         warn 'WARN: :storefronts is not searchable resource'
       end
     end

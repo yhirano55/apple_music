@@ -28,7 +28,7 @@ module AppleMusic
         Response.new(response.body).data
       end
 
-      def search(*)
+      def search(**_options)
         warn 'WARN: :genres is not searchable resource'
       end
     end

@@ -42,7 +42,7 @@ module AppleMusic
       end
 
       def search(term, **options)
-        AppleMusic.search(options.merge(term: term, types: :curators)).curators
+        AppleMusic.search(**options.merge(term: term, types: :curators)).curators
       end
     end
   end
