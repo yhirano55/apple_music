@@ -13,10 +13,15 @@ module AppleMusic
       end
 
       # e.g. AppleMusic::Album.list(ids: [310730204, 19075891])
+      # e.g. AppleMusic::Album.list(upc: '8717837013241')
       def list(**options)
-        raise ParameterMissing, 'required parameter :ids is missing' unless options[:ids]
-
-        get_collection_by_ids(options.delete(:ids), options)
+        if options[:ids]
+          get_collection_by_ids(options.delete(:ids), **options)
+        elsif options[:upc]
+          get_collection_by_upc(options.delete(:upc), **options)
+        else
+          raise ParameterMissing, 'required parameter :ids or :upc is missing'
+        end
       end
 
       # e.g. AppleMusic::Album.get_collection_by_ids([310730204, 19075891])
@@ -25,6 +30,15 @@ module AppleMusic
         ids = ids.is_a?(Array) ? ids.join(',') : ids
         storefront = Storefront.lookup(options.delete(:storefront))
         response = AppleMusic.get("catalog/#{storefront}/albums", options.merge(ids: ids))
+        Response.new(response.body).data
+      end
+
+      # e.g. AppleMusic::Album.get_collection_by_upc(8717837013241)
+      # https://developer.apple.com/documentation/applemusicapi/get_multiple_catalog_albums_by_upc
+      def get_collection_by_upc(upc, **options)
+        upc = upc.is_a?(Array) ? upc.join(',') : upc
+        storefront = Storefront.lookup(options.delete(:storefront))
+        response = AppleMusic.get("catalog/#{storefront}/albums", options.merge('filter[upc]': upc))
         Response.new(response.body).data
       end
 

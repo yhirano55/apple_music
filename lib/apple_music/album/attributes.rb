@@ -2,12 +2,12 @@
 
 module AppleMusic
   class Album < Resource
-    # https://developer.apple.com/documentation/applemusicapi/album/attributes
+    # https://developer.apple.com/documentation/applemusicapi/albums/attributes
     class Attributes
       attr_reader :album_name, :artist_name, :artwork, :content_rating,
                   :copyright, :editorial_notes, :genre_names, :is_complete,
                   :is_single, :name, :play_params, :record_label, :release_date,
-                  :track_count, :url, :is_mastered_for_itunes
+                  :track_count, :url, :is_mastered_for_itunes, :upc
 
       def initialize(props = {})
         @album_name = props['albumName'] # required
@@ -30,6 +30,7 @@ module AppleMusic
         @track_count = props['trackCount'] # required
         @url = props['url'] # required
         @is_mastered_for_itunes = props['isMasteredForItunes'] # required
+        @upc = props['upc']
       end
 
       def complete?

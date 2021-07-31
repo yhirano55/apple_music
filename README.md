@@ -58,6 +58,7 @@ Currently, it work in progress, so it can use apis which does not need user toke
 | Get a Catalog Album | :white_check_mark: | [:link:](https://developer.apple.com/documentation/applemusicapi/get_a_catalog_album) | [:octocat:](#) |
 | Get a Catalog Album's Relationship Directly by Name | :white_check_mark: | [:link:](https://developer.apple.com/documentation/applemusicapi/get_a_catalog_album_s_relationship_directly_by_name) | [:octocat:](#) |
 | Get Multiple Catalog Albums | :white_check_mark: | [:link:](https://developer.apple.com/documentation/applemusicapi/get_multiple_catalog_albums) | [:octocat:](#) |
+| Get Multiple Catalog Albums by UPC | :white_check_mark: | [:link:](https://developer.apple.com/documentation/applemusicapi/get_multiple_catalog_albums_by_upc) | [:octocat:](#) |
 | Get a Library Album | :no_entry: | [:link:](https://developer.apple.com/documentation/applemusicapi/get_a_library_album) | |
 | Get a Library Album's Relationship Directly by Name | :no_entry: | [:link:](https://developer.apple.com/documentation/applemusicapi/get_a_library_album_s_relationship_directly_by_name) | |
 | Get Multiple Library Albums | :no_entry: | [:link:](https://developer.apple.com/documentation/applemusicapi/get_multiple_library_albums) | |
