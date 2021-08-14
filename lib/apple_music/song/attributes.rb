@@ -2,7 +2,7 @@
 
 module AppleMusic
   class Song < Resource
-    # https://developer.apple.com/documentation/applemusicapi/song/attributes
+    # https://developer.apple.com/documentation/applemusicapi/songs/attributes
     class Attributes
       attr_reader :album_name, :artist_name, :artwork, :composer_name,
                   :content_rating, :disc_number, :duration_in_millis,
@@ -27,7 +27,11 @@ module AppleMusic
         @name = props['name'] # required
         @play_params = PlayParameters.new(props['playParams']) if props['playParams']
         @previews = Array(props['previews']).map { |attrs| Preview.new(attrs) } # required
-        @release_date = Date.parse(props['releaseDate']) # required
+        @release_date = begin
+                          props['releaseDate'].nil? ? nil : Date.parse(props['releaseDate'])
+                        rescue ArgumentError
+                          Date.parse("#{props['releaseDate']}/01/01")
+                        end
         @track_number = props['trackNumber'] # required
         @url = props['url'] # required
         @work_name = props['workName']
