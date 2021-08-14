@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    apple_music (0.3.0)
+    apple_music (0.3.1)
       faraday
       faraday_middleware
       jwt (>= 2.2)
@@ -13,7 +13,7 @@ GEM
     coderay (1.1.3)
     diff-lcs (1.4.4)
     dotenv (2.7.6)
-    faraday (1.5.1)
+    faraday (1.7.0)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
       faraday-excon (~> 1.1)
@@ -21,6 +21,7 @@ GEM
       faraday-net_http (~> 1.0)
       faraday-net_http_persistent (~> 1.1)
       faraday-patron (~> 1.0)
+      faraday-rack (~> 1.0)
       multipart-post (>= 1.2, < 3)
       ruby2_keywords (>= 0.0.4)
     faraday-em_http (1.0.0)
@@ -30,7 +31,8 @@ GEM
     faraday-net_http (1.0.1)
     faraday-net_http_persistent (1.2.0)
     faraday-patron (1.0.0)
-    faraday_middleware (1.0.0)
+    faraday-rack (1.0.0)
+    faraday_middleware (1.1.0)
       faraday (~> 1.0)
     jwt (2.2.3)
     method_source (1.0.0)
