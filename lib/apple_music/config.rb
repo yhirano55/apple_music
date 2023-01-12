@@ -11,15 +11,14 @@ module AppleMusic
     DEFAULT_STOREFRONT = 'us'
 
     attr_accessor :secret_key, :secret_key_path, :team_id, :music_id,
-                  :token_expiration_time, :adapter, :storefront
+                  :token_expiration_time, :storefront
 
     def initialize
       @secret_key_path = ENV['APPLE_MUSIC_SECRET_KEY_PATH']
       @secret_key = ENV['APPLE_MUSIC_SECRET_KEY']
       @team_id = ENV['APPLE_MUSIC_TEAM_ID']
       @music_id = ENV['APPLE_MUSIC_MUSIC_ID']
-      @token_expiration_time = TOKEN_EXPIRATION_TIME
-      @adapter = Faraday.default_adapter
+      @token_expiration_time = TOKEN_EXPIRATION_TIME      
       @storefront = ENV.fetch('APPLE_MUSIC_STOREFRONT') { DEFAULT_STOREFRONT }
     end
 

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'faraday'
-require 'faraday_middleware'
 
 require 'apple_music/config'
 
@@ -25,8 +24,7 @@ module AppleMusic
     def client
       @client ||= Faraday.new(API_URI) do |conn|
         conn.response :json, content_type: /\bjson\z/
-        conn.headers['Authorization'] = "Bearer #{config.authentication_token}"
-        conn.adapter config.adapter
+        conn.headers['Authorization'] = "Bearer #{config.authentication_token}"        
       end
     end
 

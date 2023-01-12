@@ -24,8 +24,7 @@ Gem::Specification.new do |s|
   s.executables   = s.files.grep(%r{^exe/}) { |f| File.basename(f) }
   s.require_paths = ['lib']
 
-  s.add_dependency 'faraday'
-  s.add_dependency 'faraday_middleware'
+  s.add_dependency 'faraday', '>= 2.0'
   s.add_dependency 'jwt', '>= 2.2'
 
   s.add_development_dependency 'bundler'
