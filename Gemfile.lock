@@ -3,6 +3,8 @@ PATH
   specs:
     apple_music (0.3.1)
       faraday (>= 2.0)
+      faraday-http-cache
+      faraday-rate_limiter
       jwt (>= 2.2)
 
 GEM
@@ -15,7 +17,11 @@ GEM
     faraday (2.7.2)
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
+    faraday-http-cache (2.4.1)
+      faraday (>= 0.8)
     faraday-net_http (3.0.2)
+    faraday-rate_limiter (0.0.4)
+      faraday
     jwt (2.6.0)
     method_source (1.0.0)
     parallel (1.20.1)
@@ -71,4 +77,4 @@ DEPENDENCIES
   rubocop
 
 BUNDLED WITH
-   2.2.14
+   2.4.1
