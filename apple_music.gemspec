@@ -25,8 +25,6 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_dependency 'faraday', '>= 2.0'
-  s.add_dependency 'faraday-http-cache'
-  s.add_dependency 'faraday-rate_limiter'
   s.add_dependency 'jwt', '>= 2.2'
 
   s.metadata['rubygems_mfa_required'] = 'true'

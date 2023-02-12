@@ -11,14 +11,15 @@ module AppleMusic
     DEFAULT_STOREFRONT = 'us'
 
     attr_accessor :secret_key, :secret_key_path, :team_id, :music_id,
-                  :token_expiration_time, :storefront, :rate_limiter, :cache_store
+                  :token_expiration_time, :storefront,
+                  :connection
 
     def initialize
       @secret_key_path = ENV.fetch('APPLE_MUSIC_SECRET_KEY_PATH', nil)
       @secret_key = ENV.fetch('APPLE_MUSIC_SECRET_KEY', nil)
       @team_id = ENV.fetch('APPLE_MUSIC_TEAM_ID', nil)
       @music_id = ENV.fetch('APPLE_MUSIC_MUSIC_ID', nil)
-      @rate_limiter = 0
+      @connection = ->(conn) {}
       @token_expiration_time = TOKEN_EXPIRATION_TIME
       @storefront = ENV.fetch('APPLE_MUSIC_STOREFRONT') { DEFAULT_STOREFRONT }
     end

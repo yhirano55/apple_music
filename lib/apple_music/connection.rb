@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'faraday'
-require 'faraday-http-cache'
 
 require 'apple_music/config'
 
@@ -25,8 +24,7 @@ module AppleMusic
     def client
       @client ||= Faraday.new(API_URI) do |conn|
         conn.response :json, content_type: /\bjson\z/
-        conn.request :rate_limiter, interval: @config.rate_limiter if @config.rate_limiter&.positive?
-        conn.use Faraday::HttpCache, store: @config.cache_store if @config.cache_store.present?
+        config.connection&.call(conn)
         conn.headers['Authorization'] = "Bearer #{config.authentication_token}"
       end
     end
