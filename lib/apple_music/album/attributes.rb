@@ -24,15 +24,24 @@ module AppleMusic
         @name = props['name'] # required
         @play_params = PlayParameters.new(props['playParams']) if props['playParams']
         @record_label = props['recordLabel'] # required
-        @release_date, @release_date_precision = begin # required
-          [Date.parse(props['releaseDate']), 'day']
-        rescue ArgumentError
-          [Date.parse("#{props['releaseDate']}/01/01"), 'year']
-        end
+        @release_date, @release_date_precision = parse_date(props['releaseDate'])
         @track_count = props['trackCount'] # required
         @url = props['url'] # required
         @is_mastered_for_itunes = props['isMasteredForItunes'] # required
         @upc = props['upc']
+      end
+
+      def parse_date(str)
+        case str
+        when /\d{4}-\d{2}-\d{2}/
+          [Date.parse(str), 'day']
+        when /\d{4}-\d{2}/
+          [Date.parse("#{str}-01"), 'month']
+        when /\d{4}/
+          [Date.parse("#{str}-01-01"), 'year']
+        else
+          raise "Invalid release date: #{str}"
+        end
       end
 
       def complete?
