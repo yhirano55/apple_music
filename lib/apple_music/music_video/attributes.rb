@@ -20,7 +20,13 @@ module AppleMusic
         @name = props['name'] # required
         @play_params = PlayParameters.new(props['playParams']) if props['playParams']
         @previews = Array(props['previews']).map { |attrs| Preview.new(attrs) } # required
-        @release_date = Date.parse(props['releaseDate']) # required
+        # @release_date = Date.parse(props['releaseDate'])
+        @release_date = begin
+          # required but may be invalid
+          Date.parse(props['releaseDate'])
+        rescue StandardError
+          nil
+        end
         @track_number = props['trackNumber']
         @url = props['url'] # required
         @video_sub_type = props['videoSubType']

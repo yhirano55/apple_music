@@ -7,7 +7,8 @@ module AppleMusic
       attr_reader :album_name, :artist_name, :artwork, :content_rating,
                   :copyright, :editorial_notes, :genre_names, :is_complete,
                   :is_single, :name, :play_params, :record_label, :release_date,
-                  :track_count, :url, :is_mastered_for_itunes, :upc
+                  :release_date_precision, :track_count, :url, :is_mastered_for_itunes,
+                  :is_compilation, :upc
 
       def initialize(props = {})
         @album_name = props['albumName'] # required
@@ -19,18 +20,28 @@ module AppleMusic
         @genre_names = props['genreNames'] # required
         @is_complete = props['isComplete'] # required
         @is_single = props['isSingle'] # required
+        @is_compilation = props['isCompilation']
         @name = props['name'] # required
         @play_params = PlayParameters.new(props['playParams']) if props['playParams']
         @record_label = props['recordLabel'] # required
-        @release_date = begin # required
-                          Date.parse(props['releaseDate'])
-                        rescue ArgumentError
-                          Date.parse("#{props['releaseDate']}/01/01")
-                        end
+        @release_date, @release_date_precision = parse_date(props['releaseDate'])
         @track_count = props['trackCount'] # required
         @url = props['url'] # required
         @is_mastered_for_itunes = props['isMasteredForItunes'] # required
         @upc = props['upc']
+      end
+
+      def parse_date(str)
+        case str
+        when /\d{4}-\d{2}-\d{2}/
+          [Date.parse(str), 'day']
+        when /\d{4}-\d{2}/
+          [Date.parse("#{str}-01"), 'month']
+        when /\d{4}/
+          [Date.parse("#{str}-01-01"), 'year']
+        else
+          raise "Invalid release date: #{str}"
+        end
       end
 
       def complete?
@@ -43,6 +54,10 @@ module AppleMusic
 
       def mastered_for_itunes?
         is_mastered_for_itunes
+      end
+
+      def compilation?
+        is_compilation
       end
     end
 
