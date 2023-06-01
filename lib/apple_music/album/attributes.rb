@@ -11,7 +11,6 @@ module AppleMusic
                   :is_compilation, :upc
 
       def initialize(props = {})
-        ap props
         @album_name = props['albumName'] # required
         @artist_name = props['artistName'] # required
         @artwork = Artwork.new(props['artwork']) if props['artwork']
