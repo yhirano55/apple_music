@@ -24,14 +24,22 @@ module AppleMusic
     end
 
     def authentication_token
-      private_key = OpenSSL::PKey::EC.new(apple_music_secret_key)
       JWT.encode(authentication_payload, private_key, ALGORITHM, kid: music_id)
+    end
+
+    def token_expired?(token)
+      decoded = JWT.decode(token, private_key, false, { algorithms: [ALGORITHM], kid: music_id })[0]
+      decoded['exp'] < Time.now.to_i
     end
 
     private
 
     def apple_music_secret_key
       @secret_key ||= File.read(secret_key_path)
+    end
+
+    def private_key
+      @private_key ||= OpenSSL::PKey::EC.new(apple_music_secret_key)
     end
 
     def authentication_payload(now = Time.now)

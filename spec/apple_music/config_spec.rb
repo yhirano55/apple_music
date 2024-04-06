@@ -47,4 +47,17 @@ RSpec.describe AppleMusic::Config do
     expect(@config.send :apple_music_secret_key).to eq(expectation)
   end
 
+  describe '#token_expired?' do
+    before do
+      allow(JWT).to receive(:decode).and_return([{
+        'exp' => (Time.now - 1000).to_i
+      }])
+      allow(@config).to receive(:private_key).and_return('private')
+      allow(@config).to receive(:music_id).and_return('id')
+    end
+
+    it 'token is expired' do
+      expect(@config.send(:token_expired?, 'token')).to be_truthy
+    end
+  end
 end

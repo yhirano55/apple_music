@@ -23,11 +23,26 @@ module AppleMusic
     private
 
     def client
+      if auth_header_expired?
+        @client = nil
+        @authentication_token = nil
+      end
+
       @client ||= Faraday.new(API_URI) do |conn|
         conn.response :json, content_type: /\bjson\z/
-        conn.headers['Authorization'] = "Bearer #{config.authentication_token}"
+        conn.headers['Authorization'] = "Bearer #{authentication_token}"
         conn.adapter config.adapter
       end
+    end
+
+    def authentication_token
+      @authentication_token ||= config.authentication_token
+    end
+
+    def auth_header_expired?
+      return false if authentication_token.nil?
+
+      @config.token_expired?(authentication_token)
     end
 
     def method_missing(name, *args, &block)
